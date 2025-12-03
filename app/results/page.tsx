@@ -24,7 +24,7 @@ function ResultsContent() {
   
   const { favoriteIds, toggleFavorite } = useFavorites();
 
-  const fetchMovies = useCallback(async (pageNum: number = 1, currentFilters: FilterValues = {}) => {
+  const fetchMovies = useCallback(async (pageNum: number = 1, currentFilters: FilterValues = {}, isReroll: boolean = false) => {
     if (!mood) return;
     
     setIsLoading(true);
@@ -54,7 +54,7 @@ function ResultsContent() {
 
       const data: TMDBMovieResponse = await response.json();
       
-      if (pageNum === 1) {
+      if (pageNum === 1 || isReroll) {
         setMovies(data.results);
       } else {
         setMovies((prev) => [...prev, ...data.results]);
@@ -63,33 +63,37 @@ function ResultsContent() {
       setPage(pageNum);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
-      if (pageNum === 1) setMovies([]);
+      if (pageNum === 1 || isReroll) setMovies([]);
     } finally {
       setIsLoading(false);
     }
   }, [mood]);
 
+  // Initial load only when mood changes
   useEffect(() => {
     if (mood) {
-      fetchMovies(1, filters);
+      setFilters({});
+      fetchMovies(1, {});
     }
-  }, [mood, fetchMovies, filters]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mood]);
 
   const handleFilterChange = (newFilters: FilterValues) => {
     setFilters(newFilters);
-    setPage(1);
+    fetchMovies(1, newFilters);
   };
 
   const loadMore = () => {
-    if (page < totalPages) {
+    if (page < totalPages && !isLoading) {
       fetchMovies(page + 1, filters);
     }
   };
 
   const reroll = async () => {
-    if (!mood) return;
-    const randomPage = Math.floor(Math.random() * Math.min(totalPages || 10, 20)) + 1;
-    fetchMovies(randomPage, filters);
+    if (!mood || isLoading) return;
+    const maxPage = Math.min(totalPages || 10, 20);
+    const randomPage = Math.floor(Math.random() * maxPage) + 1;
+    fetchMovies(randomPage, filters, true);
   };
 
   if (!mood) {
