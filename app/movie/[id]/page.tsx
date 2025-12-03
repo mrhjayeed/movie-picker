@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getMovieDetails, getImageUrl, getBackdropUrl } from '@/lib/tmdb';
 import Button from '@/components/ui/Button';
+import BackButton from '@/components/BackButton';
 
 interface MoviePageProps {
   params: Promise<{ id: string }>;
@@ -65,15 +66,7 @@ export default async function MoviePage({ params }: MoviePageProps) {
 
       {/* Content */}
       <div className="container mx-auto px-4 -mt-48 relative z-10">
-        <Link
-          href="javascript:history.back()"
-          className="inline-flex items-center gap-2 text-gray-400 hover:text-white mb-6 transition-colors"
-        >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-          </svg>
-          Back
-        </Link>
+        <BackButton />
 
         <div className="grid grid-cols-1 md:grid-cols-[300px_1fr] gap-8">
           {/* Poster */}
