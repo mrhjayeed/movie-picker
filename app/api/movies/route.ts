@@ -7,6 +7,11 @@ export async function GET(request: NextRequest) {
   const moodId = searchParams.get('moodId');
   const query = searchParams.get('query');
   const page = parseInt(searchParams.get('page') || '1', 10);
+  
+  // Filter parameters
+  const yearFrom = searchParams.get('yearFrom');
+  const yearTo = searchParams.get('yearTo');
+  const ratingMin = searchParams.get('ratingMin');
 
   try {
     // If there's a search query, use search endpoint
@@ -30,14 +35,21 @@ export async function GET(request: NextRequest) {
         genreIds: mood.genreIds,
         page,
         sortBy: mood.sortBy || 'popularity.desc',
-        voteAverageMin: mood.voteAverageMin,
+        voteAverageMin: ratingMin ? parseFloat(ratingMin) : mood.voteAverageMin,
+        yearFrom: yearFrom ? parseInt(yearFrom) : undefined,
+        yearTo: yearTo ? parseInt(yearTo) : undefined,
       });
 
       return NextResponse.json(data);
     }
 
-    // Default: return popular movies
-    const data = await discoverMovies({ page });
+    // Default: return popular movies with optional filters
+    const data = await discoverMovies({ 
+      page,
+      voteAverageMin: ratingMin ? parseFloat(ratingMin) : undefined,
+      yearFrom: yearFrom ? parseInt(yearFrom) : undefined,
+      yearTo: yearTo ? parseInt(yearTo) : undefined,
+    });
     return NextResponse.json(data);
   } catch (error) {
     console.error('Movies API error:', error);

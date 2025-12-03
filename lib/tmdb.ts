@@ -25,7 +25,8 @@ interface DiscoverParams {
   sortBy?: string;
   voteAverageMin?: number;
   voteCountMin?: number;
-  year?: number;
+  yearFrom?: number;
+  yearTo?: number;
 }
 
 // Server-side TMDB API calls
@@ -36,6 +37,8 @@ export async function discoverMovies(params: DiscoverParams): Promise<TMDBMovieR
     sortBy = 'popularity.desc',
     voteAverageMin,
     voteCountMin = 100,
+    yearFrom,
+    yearTo,
   } = params;
 
   const searchParams = new URLSearchParams({
@@ -54,6 +57,14 @@ export async function discoverMovies(params: DiscoverParams): Promise<TMDBMovieR
 
   if (voteAverageMin) {
     searchParams.append('vote_average.gte', voteAverageMin.toString());
+  }
+
+  if (yearFrom) {
+    searchParams.append('primary_release_date.gte', `${yearFrom}-01-01`);
+  }
+
+  if (yearTo) {
+    searchParams.append('primary_release_date.lte', `${yearTo}-12-31`);
   }
 
   const response = await fetch(
