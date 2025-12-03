@@ -112,7 +112,7 @@ function ResultsContent() {
   return (
     <div className="min-h-screen">
       {/* Header */}
-      <section className={`relative py-12 overflow-hidden bg-gradient-to-br ${mood.color}`}>
+      <section className={`relative py-12 bg-gradient-to-br ${mood.color}`}>
         <div className="absolute inset-0 bg-black/30" />
         <div className="container mx-auto px-4 relative z-10">
           <Link
@@ -136,7 +136,7 @@ function ResultsContent() {
               <p className="text-white/80">{mood.description}</p>
             </div>
 
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 relative z-20">
               <MovieFilters onFilterChange={handleFilterChange} isLoading={isLoading} />
               <Button
                 onClick={reroll}
