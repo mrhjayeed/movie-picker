@@ -1,36 +1,166 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# MoodFlix - Mood-Based Movie Picker 🎬
+
+Skip the genres. Pick a mood. Get a movie.
+
+A modern web app that recommends movies based on how you feel, not just traditional genre filters.
+
+## Features
+
+- 🎭 **Mood-Based Selection**: Choose from 8 expressive moods instead of boring genres
+- 🎲 **Re-roll Feature**: Not feeling the suggestions? Get a fresh batch instantly
+- ❤️ **Favorites**: Save movies you want to watch (stored locally)
+- 📱 **Responsive Design**: Works beautifully on desktop and mobile
+- 🎬 **Movie Details**: View cast, trailers, and similar movie recommendations
+- 🌙 **Dark Theme**: Easy on the eyes for those late-night browsing sessions
+
+## Moods Available
+
+| Mood | What It Means |
+|------|---------------|
+| 😢 "I want to cry" | Emotional dramas, tearjerkers |
+| 🧠 "I want to feel smarter" | Mind-bending thrillers, documentaries |
+| 💥 "I want to see things explode" | Action blockbusters, disaster films |
+| 😂 "I need to laugh" | Comedies, feel-good films |
+| 🌙 "Cozy comfort watch" | Familiar favorites, low-stakes plots |
+| 🤯 "Make me question reality" | Sci-fi, psychological thrillers |
+| 🏃 "I want to escape" | Fantasy, adventure, world-building |
+| 💀 "Scare me" | Horror, suspense |
+
+## Tech Stack
+
+- **Framework**: Next.js 14 (App Router)
+- **Styling**: Tailwind CSS
+- **Movie Data**: TMDB API
+- **Database** (optional): Supabase
+- **Language**: TypeScript
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- Node.js 18+ 
+- npm, yarn, or pnpm
+- TMDB API key (free at [themoviedb.org](https://www.themoviedb.org/settings/api))
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone <your-repo-url>
+   cd movie-picker
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Set up environment variables:
+   ```bash
+   cp .env.local.example .env.local
+   ```
+
+4. Edit `.env.local` and add your TMDB API key:
+   ```env
+   TMDB_API_KEY=your_tmdb_api_key_here
+   TMDB_BASE_URL=https://api.themoviedb.org/3
+   ```
+
+5. Run the development server:
+   ```bash
+   npm run dev
+   ```
+
+6. Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+## Project Structure
+
+```
+movie-picker/
+├── app/
+│   ├── layout.tsx            # Root layout with navbar/footer
+│   ├── page.tsx              # Home - mood selection
+│   ├── globals.css           # Global styles
+│   ├── results/
+│   │   └── page.tsx          # Movie results based on mood
+│   ├── movie/
+│   │   └── [id]/
+│   │       └── page.tsx      # Individual movie details
+│   ├── favorites/
+│   │   └── page.tsx          # User's saved favorites
+│   └── api/
+│       └── movies/
+│           └── route.ts      # TMDB API proxy
+├── components/
+│   ├── ui/
+│   │   ├── Button.tsx
+│   │   ├── Card.tsx
+│   │   └── Modal.tsx
+│   ├── MoodSelector.tsx
+│   ├── MovieCard.tsx
+│   ├── MovieGrid.tsx
+│   ├── Navbar.tsx
+│   └── Footer.tsx
+├── lib/
+│   ├── tmdb.ts               # TMDB API client
+│   ├── supabase.ts           # Supabase client
+│   ├── moods.ts              # Mood configuration
+│   └── utils.ts              # Utility functions
+├── hooks/
+│   ├── useMovies.ts          # Fetch movies hook
+│   └── useFavorites.ts       # Manage favorites hook
+├── types/
+│   └── index.ts              # TypeScript interfaces
+└── public/
+    └── images/
+        └── no-poster.svg     # Fallback image
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Environment Variables
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `TMDB_API_KEY` | Yes | Your TMDB API key |
+| `TMDB_BASE_URL` | No | TMDB API base URL (defaults to v3) |
+| `NEXT_PUBLIC_SUPABASE_URL` | No | Supabase project URL |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | No | Supabase anonymous key |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Deployment
 
-## Learn More
+### Vercel (Recommended)
 
-To learn more about Next.js, take a look at the following resources:
+1. Push your code to GitHub
+2. Import the project in [Vercel](https://vercel.com)
+3. Add environment variables in the Vercel dashboard
+4. Deploy!
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## MVP Checklist
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- [x] Project setup with Next.js 14 + Tailwind
+- [x] TMDB API integration
+- [x] Mood selection page
+- [x] Results page with movie grid
+- [x] Movie detail page
+- [x] "Give me another" re-roll button
+- [x] Mobile responsive design
+- [ ] Deploy to Vercel
 
-## Deploy on Vercel
+## Stretch Goals
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- [ ] Supabase auth (Google/GitHub login)
+- [ ] Save favorites to database
+- [ ] Mood history tracking
+- [ ] Share mood + movie on social
+- [ ] Dark/light theme toggle
+- [ ] Animations with Framer Motion
+- [ ] Search functionality
+- [ ] Filter by year/rating
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## License
+
+MIT
+
+## Acknowledgments
+
+- Movie data provided by [The Movie Database (TMDB)](https://www.themoviedb.org/)
+- Built with [Next.js](https://nextjs.org/) and [Tailwind CSS](https://tailwindcss.com/)
