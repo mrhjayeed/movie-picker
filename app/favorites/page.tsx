@@ -37,7 +37,7 @@ export default function FavoritesPage() {
   if (!mounted || isLoading) {
     return (
       <div className="container mx-auto px-4 py-16 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-4 border-purple-500 border-t-transparent" />
+        <div className="animate-spin rounded-full h-8 w-8 border-2 border-purple-500 border-t-transparent" />
       </div>
     );
   }
@@ -45,18 +45,14 @@ export default function FavoritesPage() {
   return (
     <div className="min-h-screen">
       {/* Header */}
-      <section className="relative py-12 overflow-hidden bg-gradient-to-br from-pink-600 to-purple-700">
-        <div className="absolute inset-0 bg-black/20" />
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <section className="py-8 border-b border-neutral-800">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
             <div>
-              <div className="flex items-center gap-3 mb-2">
-                <span className="text-4xl">❤️</span>
-                <h1 className="text-3xl md:text-4xl font-bold text-white">
-                  Your Favorites
-                </h1>
-              </div>
-              <p className="text-white/80">
+              <h1 className="text-xl font-semibold text-neutral-100">
+                Favorites
+              </h1>
+              <p className="text-sm text-neutral-500 mt-1">
                 {favorites.length === 0
                   ? 'Movies you love will appear here'
                   : `${favorites.length} movie${favorites.length === 1 ? '' : 's'} saved`}
@@ -70,8 +66,8 @@ export default function FavoritesPage() {
                     clearFavorites();
                   }
                 }}
-                variant="secondary"
-                size="lg"
+                variant="ghost"
+                size="sm"
               >
                 Clear All
               </Button>
@@ -83,14 +79,10 @@ export default function FavoritesPage() {
       {/* Content */}
       <section className="container mx-auto px-4 py-8">
         {favorites.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-16">
-            <div className="text-6xl mb-4">💔</div>
-            <h2 className="text-2xl font-bold mb-2">No favorites yet</h2>
-            <p className="text-gray-400 mb-8 text-center max-w-md">
-              Start exploring movies and tap the heart icon to save your favorites!
-            </p>
+          <div className="flex flex-col items-center justify-center py-12">
+            <p className="text-neutral-500 mb-4">No favorites yet</p>
             <Link href="/">
-              <Button size="lg">Find Movies</Button>
+              <Button size="sm">Find Movies</Button>
             </Link>
           </div>
         ) : (

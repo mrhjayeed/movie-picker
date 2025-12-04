@@ -25,7 +25,7 @@ export default async function MoviePage({ params }: MoviePageProps) {
   }
 
   const director = movie.credits?.crew?.find((c) => c.job === 'Director');
-  const cast = movie.credits?.cast?.slice(0, 8) || [];
+  const cast = movie.credits?.cast?.slice(0, 6) || [];
   const trailer = movie.videos?.results?.find(
     (v) => v.type === 'Trailer' && v.site === 'YouTube'
   );
@@ -41,7 +41,7 @@ export default async function MoviePage({ params }: MoviePageProps) {
   const formatDate = (date: string) => {
     return new Date(date).toLocaleDateString('en-US', {
       year: 'numeric',
-      month: 'long',
+      month: 'short',
       day: 'numeric',
     });
   };
@@ -49,7 +49,7 @@ export default async function MoviePage({ params }: MoviePageProps) {
   return (
     <div className="min-h-screen">
       {/* Backdrop */}
-      <div className="relative h-[50vh] md:h-[60vh]">
+      <div className="relative h-[40vh] md:h-[50vh]">
         {movie.backdrop_path ? (
           <Image
             src={getBackdropUrl(movie.backdrop_path)}
@@ -59,19 +59,19 @@ export default async function MoviePage({ params }: MoviePageProps) {
             className="object-cover"
           />
         ) : (
-          <div className="absolute inset-0 bg-gradient-to-br from-purple-900 to-gray-900" />
+          <div className="absolute inset-0 bg-neutral-900" />
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/60 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/70 to-transparent" />
       </div>
 
       {/* Content */}
-      <div className="container mx-auto px-4 -mt-48 relative z-10">
+      <div className="container mx-auto px-4 -mt-32 relative z-10">
         <BackButton />
 
-        <div className="grid grid-cols-1 md:grid-cols-[300px_1fr] gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-[240px_1fr] gap-6">
           {/* Poster */}
           <div className="hidden md:block">
-            <div className="relative aspect-[2/3] rounded-2xl overflow-hidden shadow-2xl">
+            <div className="relative aspect-[2/3] rounded-lg overflow-hidden">
               <Image
                 src={getImageUrl(movie.poster_path, 'w500')}
                 alt={movie.title}
@@ -83,24 +83,24 @@ export default async function MoviePage({ params }: MoviePageProps) {
 
           {/* Info */}
           <div>
-            <h1 className="text-3xl md:text-5xl font-bold text-white mb-4">
+            <h1 className="text-2xl md:text-3xl font-semibold text-neutral-100 mb-2">
               {movie.title}
             </h1>
 
             {movie.tagline && (
-              <p className="text-lg text-purple-400 italic mb-4">
-                &ldquo;{movie.tagline}&rdquo;
+              <p className="text-sm text-neutral-500 italic mb-4">
+                {movie.tagline}
               </p>
             )}
 
             {/* Meta */}
-            <div className="flex flex-wrap items-center gap-4 text-gray-400 mb-6">
+            <div className="flex flex-wrap items-center gap-3 text-sm text-neutral-400 mb-4">
               <div className="flex items-center gap-1">
-                <svg className="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                <svg className="w-4 h-4 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                 </svg>
-                <span className="font-semibold text-white">{movie.vote_average.toFixed(1)}</span>
-                <span>({movie.vote_count.toLocaleString()} votes)</span>
+                <span className="font-medium text-neutral-100">{movie.vote_average.toFixed(1)}</span>
+                <span className="text-neutral-500">({movie.vote_count.toLocaleString()})</span>
               </div>
               
               {movie.release_date && (
@@ -111,11 +111,11 @@ export default async function MoviePage({ params }: MoviePageProps) {
             </div>
 
             {/* Genres */}
-            <div className="flex flex-wrap gap-2 mb-6">
+            <div className="flex flex-wrap gap-1.5 mb-4">
               {movie.genres.map((genre) => (
                 <span
                   key={genre.id}
-                  className="px-3 py-1 rounded-full bg-gray-800 text-gray-300 text-sm"
+                  className="px-2 py-0.5 rounded bg-neutral-800 text-neutral-300 text-xs"
                 >
                   {genre.name}
                 </span>
@@ -123,34 +123,34 @@ export default async function MoviePage({ params }: MoviePageProps) {
             </div>
 
             {/* Overview */}
-            <div className="mb-8">
-              <h2 className="text-xl font-semibold mb-3">Overview</h2>
-              <p className="text-gray-300 leading-relaxed">
+            <div className="mb-6">
+              <h2 className="text-sm font-medium text-neutral-400 mb-2">Overview</h2>
+              <p className="text-sm text-neutral-300 leading-relaxed">
                 {movie.overview || 'No overview available.'}
               </p>
             </div>
 
             {/* Director */}
             {director && (
-              <div className="mb-6">
-                <span className="text-gray-400">Director: </span>
-                <span className="text-white font-medium">{director.name}</span>
+              <div className="mb-6 text-sm">
+                <span className="text-neutral-500">Director: </span>
+                <span className="text-neutral-100">{director.name}</span>
               </div>
             )}
 
             {/* Actions */}
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-wrap gap-3">
               {trailer && (
                 <a
                   href={`https://www.youtube.com/watch?v=${trailer.key}`}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <Button size="lg">
-                    <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                  <Button size="sm">
+                    <svg className="w-4 h-4 mr-1.5" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
                     </svg>
-                    Watch Trailer
+                    Trailer
                   </Button>
                 </a>
               )}
@@ -160,12 +160,12 @@ export default async function MoviePage({ params }: MoviePageProps) {
 
         {/* Cast */}
         {cast.length > 0 && (
-          <section className="mt-12">
-            <h2 className="text-2xl font-bold mb-6">Cast</h2>
-            <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4">
+          <section className="mt-10">
+            <h2 className="text-lg font-medium text-neutral-100 mb-4">Cast</h2>
+            <div className="grid grid-cols-3 sm:grid-cols-6 gap-3">
               {cast.map((member) => (
                 <div key={member.id} className="text-center">
-                  <div className="relative aspect-square rounded-xl overflow-hidden bg-gray-800 mb-2">
+                  <div className="relative aspect-square rounded-lg overflow-hidden bg-neutral-800 mb-1.5">
                     <Image
                       src={getImageUrl(member.profile_path, 'w200')}
                       alt={member.name}
@@ -173,8 +173,8 @@ export default async function MoviePage({ params }: MoviePageProps) {
                       className="object-cover"
                     />
                   </div>
-                  <p className="text-sm font-medium text-white truncate">{member.name}</p>
-                  <p className="text-xs text-gray-500 truncate">{member.character}</p>
+                  <p className="text-xs font-medium text-neutral-100 truncate">{member.name}</p>
+                  <p className="text-xs text-neutral-500 truncate">{member.character}</p>
                 </div>
               ))}
             </div>
@@ -183,16 +183,16 @@ export default async function MoviePage({ params }: MoviePageProps) {
 
         {/* Similar Movies */}
         {similarMovies.length > 0 && (
-          <section className="mt-12 pb-12">
-            <h2 className="text-2xl font-bold mb-6">Similar Movies</h2>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4">
+          <section className="mt-10 pb-10">
+            <h2 className="text-lg font-medium text-neutral-100 mb-4">Similar Movies</h2>
+            <div className="grid grid-cols-3 sm:grid-cols-6 gap-3">
               {similarMovies.map((similar) => (
                 <Link
                   key={similar.id}
                   href={`/movie/${similar.id}`}
                   className="group"
                 >
-                  <div className="relative aspect-[2/3] rounded-xl overflow-hidden bg-gray-800 mb-2 transition-transform group-hover:scale-105">
+                  <div className="relative aspect-[2/3] rounded-lg overflow-hidden bg-neutral-800 mb-1.5 transition-all group-hover:ring-1 group-hover:ring-neutral-700">
                     <Image
                       src={getImageUrl(similar.poster_path, 'w300')}
                       alt={similar.title}
@@ -200,7 +200,7 @@ export default async function MoviePage({ params }: MoviePageProps) {
                       className="object-cover"
                     />
                   </div>
-                  <p className="text-sm font-medium text-white truncate group-hover:text-purple-400 transition-colors">
+                  <p className="text-xs font-medium text-neutral-300 truncate group-hover:text-purple-400 transition-colors">
                     {similar.title}
                   </p>
                 </Link>

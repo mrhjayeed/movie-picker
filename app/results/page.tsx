@@ -99,9 +99,8 @@ function ResultsContent() {
   if (!mood) {
     return (
       <div className="container mx-auto px-4 py-16 text-center">
-        <div className="text-6xl mb-4">🤔</div>
-        <h1 className="text-2xl font-bold mb-4">No mood selected</h1>
-        <p className="text-gray-400 mb-8">Please select a mood to get movie recommendations.</p>
+        <h1 className="text-xl font-semibold text-neutral-100 mb-3">No mood selected</h1>
+        <p className="text-neutral-500 mb-6">Please select a mood to get recommendations.</p>
         <Link href="/">
           <Button>Pick a Mood</Button>
         </Link>
@@ -112,40 +111,39 @@ function ResultsContent() {
   return (
     <div className="min-h-screen">
       {/* Header */}
-      <section className={`relative py-12 bg-gradient-to-br ${mood.color}`}>
-        <div className="absolute inset-0 bg-black/30" />
-        <div className="container mx-auto px-4 relative z-10">
+      <section className="py-8 border-b border-neutral-800">
+        <div className="container mx-auto px-4">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-white/80 hover:text-white mb-6 transition-colors"
+            className="inline-flex items-center gap-1.5 text-sm text-neutral-500 hover:text-neutral-300 mb-4 transition-colors"
           >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 19l-7-7 7-7" />
             </svg>
-            Change mood
+            Back to moods
           </Link>
           
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-            <div>
-              <div className="flex items-center gap-3 mb-2">
-                <span className="text-4xl">{mood.emoji}</span>
-                <h1 className="text-3xl md:text-4xl font-bold text-white">
+            <div className="flex items-center gap-3">
+              <span className="text-2xl">{mood.emoji}</span>
+              <div>
+                <h1 className="text-xl font-semibold text-neutral-100">
                   {mood.label}
                 </h1>
+                <p className="text-sm text-neutral-500">{mood.description}</p>
               </div>
-              <p className="text-white/80">{mood.description}</p>
             </div>
 
-            <div className="flex items-center gap-3 relative z-20">
+            <div className="flex items-center gap-2 relative z-20">
               <MovieFilters onFilterChange={handleFilterChange} isLoading={isLoading} />
               <Button
                 onClick={reroll}
-                variant="secondary"
-                size="md"
+                variant="outline"
+                size="sm"
                 isLoading={isLoading}
                 className="shrink-0"
               >
-                🎲 Shuffle
+                Shuffle
               </Button>
             </div>
           </div>
@@ -156,15 +154,15 @@ function ResultsContent() {
       <section className="container mx-auto px-4 py-8">
         {error && (
           <div className="text-center py-8">
-            <p className="text-red-400 mb-4">{error}</p>
-            <Button onClick={() => fetchMovies(1, filters)}>Try Again</Button>
+            <p className="text-red-400 text-sm mb-4">{error}</p>
+            <Button onClick={() => fetchMovies(1, filters)} variant="outline" size="sm">Try Again</Button>
           </div>
         )}
 
         {isLoading && movies.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-16">
-            <div className="animate-spin rounded-full h-12 w-12 border-4 border-purple-500 border-t-transparent mb-4" />
-            <p className="text-gray-400">Finding movies for your mood...</p>
+            <div className="animate-spin rounded-full h-8 w-8 border-2 border-purple-500 border-t-transparent mb-3" />
+            <p className="text-sm text-neutral-500">Finding movies...</p>
           </div>
         ) : (
           <>
@@ -181,10 +179,10 @@ function ResultsContent() {
                 <Button
                   onClick={loadMore}
                   variant="outline"
-                  size="lg"
+                  size="sm"
                   isLoading={isLoading}
                 >
-                  Load More Movies
+                  Load More
                 </Button>
               </div>
             )}
@@ -199,7 +197,7 @@ export default function ResultsPage() {
   return (
     <Suspense fallback={
       <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-4 border-purple-500 border-t-transparent" />
+        <div className="animate-spin rounded-full h-8 w-8 border-2 border-purple-500 border-t-transparent" />
       </div>
     }>
       <ResultsContent />

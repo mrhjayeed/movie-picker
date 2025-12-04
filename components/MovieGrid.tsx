@@ -20,15 +20,14 @@ export default function MovieGrid({
 }: MovieGridProps) {
   if (movies.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center py-16">
-        <div className="text-6xl mb-4">🎬</div>
-        <p className="text-gray-400 text-lg">{emptyMessage}</p>
+      <div className="flex flex-col items-center justify-center py-12">
+        <p className="text-neutral-500">{emptyMessage}</p>
       </div>
     );
   }
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 md:gap-6">
+    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-4">
       {movies.map((movie) => (
         <MovieCard
           key={movie.id}

@@ -72,27 +72,13 @@ function SearchContent() {
   return (
     <div className="min-h-screen">
       {/* Header */}
-      <section className="relative py-12 overflow-hidden bg-gradient-to-br from-blue-600 to-purple-700">
-        <div className="absolute inset-0 bg-black/20" />
-        <div className="container mx-auto px-4 relative z-10">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 text-white/80 hover:text-white mb-6 transition-colors"
-          >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-            Back to moods
-          </Link>
+      <section className="py-8 border-b border-neutral-800">
+        <div className="container mx-auto px-4">
+          <h1 className="text-xl font-semibold text-neutral-100 mb-4">
+            Search Movies
+          </h1>
           
-          <div className="flex items-center gap-3 mb-4">
-            <span className="text-4xl">🔍</span>
-            <h1 className="text-3xl md:text-4xl font-bold text-white">
-              Search Movies
-            </h1>
-          </div>
-          
-          <div className="max-w-xl">
+          <div className="max-w-md">
             <SearchBar
               initialValue={query}
               autoFocus
@@ -102,8 +88,8 @@ function SearchContent() {
           </div>
           
           {query && movies.length > 0 && (
-            <p className="text-white/80 mt-4">
-              Found {movies.length} results for &ldquo;{query}&rdquo;
+            <p className="text-sm text-neutral-500 mt-3">
+              {movies.length} results for &ldquo;{query}&rdquo;
             </p>
           )}
         </div>
@@ -112,22 +98,20 @@ function SearchContent() {
       {/* Results */}
       <section className="container mx-auto px-4 py-8">
         {!query ? (
-          <div className="flex flex-col items-center justify-center py-16">
-            <div className="text-6xl mb-4">🎬</div>
-            <h2 className="text-2xl font-bold mb-2">Search for movies</h2>
-            <p className="text-gray-400 text-center max-w-md">
-              Enter a movie title above to find what you&apos;re looking for
+          <div className="flex flex-col items-center justify-center py-12">
+            <p className="text-neutral-500">
+              Enter a movie title to search
             </p>
           </div>
         ) : error ? (
           <div className="text-center py-8">
-            <p className="text-red-400 mb-4">{error}</p>
-            <Button onClick={() => searchMovies(query, 1)}>Try Again</Button>
+            <p className="text-red-400 text-sm mb-4">{error}</p>
+            <Button onClick={() => searchMovies(query, 1)} variant="outline" size="sm">Try Again</Button>
           </div>
         ) : isLoading && movies.length === 0 ? (
-          <div className="flex flex-col items-center justify-center py-16">
-            <div className="animate-spin rounded-full h-12 w-12 border-4 border-purple-500 border-t-transparent mb-4" />
-            <p className="text-gray-400">Searching...</p>
+          <div className="flex flex-col items-center justify-center py-12">
+            <div className="animate-spin rounded-full h-8 w-8 border-2 border-purple-500 border-t-transparent mb-3" />
+            <p className="text-sm text-neutral-500">Searching...</p>
           </div>
         ) : (
           <>
@@ -143,10 +127,10 @@ function SearchContent() {
                 <Button
                   onClick={loadMore}
                   variant="outline"
-                  size="lg"
+                  size="sm"
                   isLoading={isLoading}
                 >
-                  Load More Results
+                  Load More
                 </Button>
               </div>
             )}
@@ -161,7 +145,7 @@ export default function SearchPage() {
   return (
     <Suspense fallback={
       <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-4 border-purple-500 border-t-transparent" />
+        <div className="animate-spin rounded-full h-8 w-8 border-2 border-purple-500 border-t-transparent" />
       </div>
     }>
       <SearchContent />
