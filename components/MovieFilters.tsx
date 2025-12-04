@@ -69,8 +69,8 @@ export default function MovieFilters({ onFilterChange, isLoading }: MovieFilters
             onClick={() => setIsOpen(false)} 
           />
           
-          {/* Dropdown panel */}
-          <div className="absolute right-0 mt-2 w-64 p-4 bg-neutral-900 border border-neutral-800 rounded-lg shadow-xl z-20">
+          {/* Dropdown panel - full width on mobile */}
+          <div className="fixed inset-x-4 top-auto bottom-4 sm:absolute sm:inset-auto sm:right-0 sm:bottom-auto sm:mt-2 w-auto sm:w-72 p-4 bg-neutral-900 border border-neutral-800 rounded-lg shadow-xl z-20">
             <h3 className="text-sm font-medium text-neutral-100 mb-3">Filters</h3>
             
             {/* Year range */}
@@ -80,7 +80,7 @@ export default function MovieFilters({ onFilterChange, isLoading }: MovieFilters
                 <select
                   value={yearFrom}
                   onChange={(e) => setYearFrom(e.target.value)}
-                  className="flex-1 px-2 py-1.5 bg-neutral-800 border border-neutral-700 rounded text-sm text-neutral-100 focus:outline-none focus:border-neutral-600"
+                  className="flex-1 px-3 py-2.5 bg-neutral-800 border border-neutral-700 rounded-lg text-base sm:text-sm text-neutral-100 focus:outline-none focus:border-neutral-600"
                 >
                   <option value="">From</option>
                   {years.map((year) => (
@@ -91,7 +91,7 @@ export default function MovieFilters({ onFilterChange, isLoading }: MovieFilters
                 <select
                   value={yearTo}
                   onChange={(e) => setYearTo(e.target.value)}
-                  className="flex-1 px-2 py-1.5 bg-neutral-800 border border-neutral-700 rounded text-sm text-neutral-100 focus:outline-none focus:border-neutral-600"
+                  className="flex-1 px-3 py-2.5 bg-neutral-800 border border-neutral-700 rounded-lg text-base sm:text-sm text-neutral-100 focus:outline-none focus:border-neutral-600"
                 >
                   <option value="">To</option>
                   {years.map((year) => (

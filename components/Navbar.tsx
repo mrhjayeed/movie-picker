@@ -104,18 +104,28 @@ export default function Navbar() {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden py-3 border-t border-neutral-800">
-            <div className="flex flex-col gap-1">
+          <div className="md:hidden py-4 border-t border-neutral-800 animate-in slide-in-from-top-2 duration-200">
+            {/* Mobile Search */}
+            <form onSubmit={handleSearch} className="mb-4">
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search movies..."
+                className="w-full px-4 py-3 bg-neutral-900 border border-neutral-800 rounded-lg text-base text-neutral-100 placeholder-neutral-500 focus:outline-none focus:border-neutral-600"
+              />
+            </form>
+            <div className="flex flex-col">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
                   onClick={() => setIsMenuOpen(false)}
                   className={cn(
-                    'px-3 py-2 text-sm transition-colors',
+                    'px-3 py-3.5 text-base transition-colors rounded-lg active:bg-neutral-800',
                     isActive(link.href)
                       ? 'text-purple-400'
-                      : 'text-neutral-400 hover:text-neutral-100'
+                      : 'text-neutral-300 hover:text-neutral-100'
                   )}
                 >
                   {link.label}

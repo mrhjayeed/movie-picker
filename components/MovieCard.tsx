@@ -23,7 +23,7 @@ export default function MovieCard({
     : 'N/A';
 
   return (
-    <div className="group rounded-lg bg-neutral-900/50 border border-neutral-800 overflow-hidden hover:border-neutral-700 transition-all">
+    <div className="group rounded-lg bg-neutral-900/50 border border-neutral-800 overflow-hidden hover:border-neutral-700 active:bg-neutral-800/50 transition-all">
       <Link href={`/movie/${movie.id}`} className="flex flex-col h-full">
         {/* Poster */}
         <div className="relative aspect-[2/3] overflow-hidden bg-neutral-900">
@@ -31,7 +31,7 @@ export default function MovieCard({
             src={getImageUrl(movie.poster_path, 'w500')}
             alt={movie.title}
             fill
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+            sizes="(max-width: 480px) 50vw, (max-width: 768px) 33vw, (max-width: 1024px) 25vw, 20vw"
             className="object-cover transition-transform duration-300 group-hover:scale-102"
           />
 
@@ -82,11 +82,11 @@ export default function MovieCard({
         </div>
 
         {/* Info */}
-        <div className="p-3">
-          <h3 className="font-medium text-sm text-neutral-100 line-clamp-2 group-hover:text-purple-400 transition-colors">
+        <div className="p-2 sm:p-3">
+          <h3 className="font-medium text-xs sm:text-sm text-neutral-100 line-clamp-2 group-hover:text-purple-400 transition-colors">
             {movie.title}
           </h3>
-          <p className="text-xs text-neutral-500 mt-1">{releaseYear}</p>
+          <p className="text-xs text-neutral-500 mt-0.5 sm:mt-1">{releaseYear}</p>
         </div>
       </Link>
     </div>

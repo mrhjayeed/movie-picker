@@ -49,7 +49,7 @@ export default async function MoviePage({ params }: MoviePageProps) {
   return (
     <div className="min-h-screen">
       {/* Backdrop */}
-      <div className="relative h-[40vh] md:h-[50vh]">
+      <div className="relative h-[30vh] sm:h-[40vh] md:h-[50vh]">
         {movie.backdrop_path ? (
           <Image
             src={getBackdropUrl(movie.backdrop_path)}
@@ -65,25 +65,26 @@ export default async function MoviePage({ params }: MoviePageProps) {
       </div>
 
       {/* Content */}
-      <div className="container mx-auto px-4 -mt-32 relative z-10">
+      <div className="container mx-auto px-4 -mt-20 sm:-mt-28 md:-mt-32 relative z-10">
         <BackButton />
 
-        <div className="grid grid-cols-1 md:grid-cols-[240px_1fr] gap-6">
-          {/* Poster */}
-          <div className="hidden md:block">
-            <div className="relative aspect-[2/3] rounded-lg overflow-hidden">
+        <div className="grid grid-cols-1 md:grid-cols-[240px_1fr] gap-4 md:gap-6">
+          {/* Poster - shown on mobile too */}
+          <div className="flex justify-center md:block">
+            <div className="relative w-32 sm:w-40 md:w-full aspect-[2/3] rounded-lg overflow-hidden">
               <Image
                 src={getImageUrl(movie.poster_path, 'w500')}
                 alt={movie.title}
                 fill
+                sizes="(max-width: 768px) 160px, 240px"
                 className="object-cover"
               />
             </div>
           </div>
 
           {/* Info */}
-          <div>
-            <h1 className="text-2xl md:text-3xl font-semibold text-neutral-100 mb-2">
+          <div className="text-center md:text-left">
+            <h1 className="text-xl sm:text-2xl md:text-3xl font-semibold text-neutral-100 mb-2">
               {movie.title}
             </h1>
 
@@ -94,7 +95,7 @@ export default async function MoviePage({ params }: MoviePageProps) {
             )}
 
             {/* Meta */}
-            <div className="flex flex-wrap items-center gap-3 text-sm text-neutral-400 mb-4">
+            <div className="flex flex-wrap items-center justify-center md:justify-start gap-2 sm:gap-3 text-xs sm:text-sm text-neutral-400 mb-4">
               <div className="flex items-center gap-1">
                 <svg className="w-4 h-4 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
@@ -111,7 +112,7 @@ export default async function MoviePage({ params }: MoviePageProps) {
             </div>
 
             {/* Genres */}
-            <div className="flex flex-wrap gap-1.5 mb-4">
+            <div className="flex flex-wrap justify-center md:justify-start gap-1.5 mb-4">
               {movie.genres.map((genre) => (
                 <span
                   key={genre.id}
@@ -139,7 +140,7 @@ export default async function MoviePage({ params }: MoviePageProps) {
             )}
 
             {/* Actions */}
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap justify-center md:justify-start gap-3">
               {trailer && (
                 <a
                   href={`https://www.youtube.com/watch?v=${trailer.key}`}

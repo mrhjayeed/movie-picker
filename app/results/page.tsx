@@ -123,25 +123,25 @@ function ResultsContent() {
             Back to moods
           </Link>
           
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <div className="flex flex-col gap-4">
             <div className="flex items-center gap-3">
-              <span className="text-2xl">{mood.emoji}</span>
+              <span className="text-xl sm:text-2xl">{mood.emoji}</span>
               <div>
-                <h1 className="text-xl font-semibold text-neutral-100">
+                <h1 className="text-lg sm:text-xl font-semibold text-neutral-100">
                   {mood.label}
                 </h1>
-                <p className="text-sm text-neutral-500">{mood.description}</p>
+                <p className="text-xs sm:text-sm text-neutral-500 hidden sm:block">{mood.description}</p>
               </div>
             </div>
 
-            <div className="flex items-center gap-2 relative z-20">
+            <div className="flex items-center gap-2">
               <MovieFilters onFilterChange={handleFilterChange} isLoading={isLoading} />
               <Button
                 onClick={reroll}
                 variant="outline"
                 size="sm"
                 isLoading={isLoading}
-                className="shrink-0"
+                className="flex-1 sm:flex-none"
               >
                 Shuffle
               </Button>
@@ -151,7 +151,7 @@ function ResultsContent() {
       </section>
 
       {/* Movies Grid */}
-      <section className="container mx-auto px-4 py-8">
+      <section className="container mx-auto px-3 sm:px-4 py-6 sm:py-8">
         {error && (
           <div className="text-center py-8">
             <p className="text-red-400 text-sm mb-4">{error}</p>
