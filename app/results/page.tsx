@@ -123,7 +123,7 @@ function ResultsContent() {
             Back to moods
           </Link>
           
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div className="flex items-center gap-3">
               <span className="text-xl sm:text-2xl">{mood.emoji}</span>
               <div>
