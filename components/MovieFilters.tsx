@@ -63,14 +63,19 @@ export default function MovieFilters({ onFilterChange, isLoading }: MovieFilters
       {/* Filter dropdown */}
       {isOpen && (
         <>
-          {/* Backdrop */}
+          {/* Backdrop - darker on mobile for modal effect */}
           <div 
-            className="fixed inset-0 z-10" 
+            className="fixed inset-0 z-40 bg-black/50 sm:bg-transparent" 
             onClick={() => setIsOpen(false)} 
           />
           
-          {/* Dropdown panel - full width on mobile */}
-          <div className="fixed inset-x-4 top-auto bottom-4 sm:absolute sm:inset-auto sm:right-0 sm:bottom-auto sm:mt-2 w-auto sm:w-72 p-4 bg-neutral-900 border border-neutral-800 rounded-lg shadow-xl z-20">
+          {/* Dropdown panel - bottom sheet on mobile, dropdown on desktop */}
+          <div className="fixed inset-x-0 bottom-0 sm:absolute sm:inset-auto sm:right-0 sm:top-full sm:mt-2 sm:w-72 p-4 pb-8 sm:pb-4 bg-neutral-900 border-t sm:border border-neutral-800 sm:rounded-lg shadow-xl z-50">
+            {/* Mobile drag handle */}
+            <div className="flex justify-center mb-3 sm:hidden">
+              <div className="w-10 h-1 bg-neutral-700 rounded-full" />
+            </div>
+            
             <h3 className="text-sm font-medium text-neutral-100 mb-3">Filters</h3>
             
             {/* Year range */}
